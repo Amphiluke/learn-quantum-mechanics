@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Волновые функции квантового гармонического осциллятора</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <!--<h1>Волновые функции квантового гармонического осциллятора</h1>-->
+
+    <form action="#" autocomplete="off">
+        <p>Отображать волновую функцию для <var>n</var>:</p>
+        <p id="qho-switcher" class="qho-switcher">
+            <label><input type="checkbox" checked> 0</label>
+            <label><input type="checkbox" checked> 1</label>
+            <label><input type="checkbox" checked> 2</label>
+            <label><input type="checkbox" checked> 3</label>
+            <label><input type="checkbox"> 4</label>
+            <label><input type="checkbox"> 5</label>
+            <label><input type="checkbox"> 6</label>
+            <label><input type="checkbox"> 7</label>
+            <label><input type="checkbox"> 8</label>
+            <label><input type="checkbox"> 9</label>
+            <label><input type="checkbox"> 10</label>
+        </p>
+        <p><canvas id="qho-canvas" class="qho-canvas" width="400" height="250"></canvas></p>
+    </form>
+
+    <script src="../vendor/system.js"></script>
+    <script>
+        "use strict";
+        SystemJS.config({
+            baseURL: "./js",
+            map: {
+                Chart: "../vendor/Chart.min.js",
+                utils: "../utils/utils.js"
+            }
+        });
+        SystemJS.import("index.js");
+    </script>
+</body>
+</html>
