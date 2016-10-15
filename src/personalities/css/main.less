@@ -1,0 +1,67 @@
+@import (inline) "../../../node_modules/normalize.css/normalize.css";
+
+body {
+    color:#333;
+    margin:0 auto;
+    max-width:320px;
+}
+
+.pers {
+    &-list {
+        height:380px;
+        list-style:none;
+        margin:0;
+        padding:0;
+        position:relative;
+
+        > li {
+            height:100%;
+            left:0;
+            opacity:0;
+            overflow:hidden;
+            position:absolute;
+            top:0;
+            transition:opacity 0.5s;
+            width:100%;
+
+            &.active {
+                opacity:1;
+            }
+        }
+
+        h2 {
+            text-align:center;
+        }
+    }
+
+    &-photo {
+        margin-bottom:0;
+        text-align:center;
+
+        img {
+            max-width:100%;
+            vertical-align:top;
+        }
+    }
+
+    &-about {
+        background:fade(#333, 95%);
+        bottom:0;
+        box-sizing:border-box;
+        color:#ddd;
+        height:100%;
+        left:0;
+        padding:15px 20px;
+        position:absolute;
+        transform:translateY(101%);
+        transition:transform 0.5s ease 0.75s;
+        width:100%;
+
+        h3 {
+            text-align:center;
+        }
+    }
+    &-list:hover .active &-about {
+        transform:translateY(0);
+    }
+}
