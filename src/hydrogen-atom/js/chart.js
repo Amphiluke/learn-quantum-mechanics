@@ -19,6 +19,8 @@ var config = {
             xAxes: [{
                 scaleLabel: {
                     display: true,
+                    fontFamily: "'Times New Roman',serif",
+                    fontStyle: "italic",
                     labelString: "r"
                 },
                 type: "linear",
@@ -33,6 +35,8 @@ var config = {
             yAxes: [{
                 scaleLabel: {
                     display: true,
+                    fontFamily: "'Times New Roman',serif",
+                    fontStyle: "italic",
                     labelString: "R(r)"
                 },
                 gridLines: {
