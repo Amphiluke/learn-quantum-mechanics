@@ -45,14 +45,15 @@ body {
     &-about {
         padding:10px;
         h2 {
-            text-align:center;
+            font-size:1.3em;
             margin:0 0 0.5em;
+            text-align:center;
         }
     }
 }
 
 .toc {
-    background:fade(#333, 95%);
+    background:fade(#edecec, 97%);
     height:100%;
     left:0;
     margin:0;
@@ -83,13 +84,16 @@ body {
     }
 
     > li {
-        color:#ddd;
         cursor:pointer;
         margin:0;
         padding:5px 10px;
 
         &:hover {
-            background:fade(#000, 90%);
+            background:darken(#edecec, 15%);
+        }
+
+        &:before {
+            content:"\2756  "
         }
     }
 }
