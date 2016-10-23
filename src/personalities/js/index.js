@@ -1,45 +1,31 @@
 "use strict";
 
+var slider = require("./slider.js");
+
 var list = document.getElementById("pers-list"),
-    items = list.children,
-    activeIdx,
-    slideOrder,
-    intervalId;
+    toc = document.getElementById("toc");
 
-function slide() {
-    items[slideOrder[activeIdx]].classList.remove("active");
-    activeIdx = ++activeIdx % slideOrder.length;
-    items[slideOrder[activeIdx]].classList.add("active");
-}
+slider.init(list.children);
 
-// Randomize slide order
-slideOrder = (function () {
-    var itemCount = items.length,
-        result = new Array(itemCount),
-        currIdx, rndIdx, tmpValue;
-    for (currIdx = 0; currIdx < itemCount; currIdx++) {
-        result[currIdx] = currIdx;
+list.addEventListener("mouseenter", slider.pause, false);
+list.addEventListener("mouseleave", slider.play, false);
+
+toc.innerHTML = Array.prototype.slice.call(list.querySelectorAll(".pers-about > h2"), 0).map(function (header, index) {
+    return "<li data-idx='" + index + "'>" + header.innerHTML + "</li>";
+}).join("");
+
+document.getElementById("toc-btn").addEventListener("click", function () {
+    slider.pause();
+    toc.classList.add("toc-show");
+});
+
+toc.addEventListener("click", function (e) {
+    var index = e.target.getAttribute("data-idx");
+    if (typeof index === "string") {
+        slider.goto(Number(index));
     }
-    for (currIdx = itemCount - 1; currIdx > 0; currIdx--) {
-        rndIdx = Math.floor(Math.random() * currIdx + 1);
-        tmpValue = result[currIdx];
-        result[currIdx] = result[rndIdx];
-        result[rndIdx] = tmpValue;
-    }
-    return result;
-})();
-
-activeIdx = slideOrder[Math.floor(Math.random() * slideOrder.length)];
-items[slideOrder[activeIdx]].classList.add("active");
-
-list.addEventListener("mouseenter", function () {
-    clearInterval(intervalId);
+    toc.classList.remove("toc-show");
+    slider.play();
 }, false);
-
-list.addEventListener("mouseleave", function () {
-    intervalId = setInterval(slide, 5000);
-}, false);
-
-intervalId = setInterval(slide, 5000);
 
 module.exports = {};

@@ -2,23 +2,22 @@
 
 body {
     color:#333;
+    font:normal 80% Arial,sans-serif;
     margin:0 auto;
-    max-width:320px;
+    max-width:200px;
+    position:relative;
 }
 
 .pers {
     &-list {
-        height:380px;
         list-style:none;
         margin:0;
         padding:0;
         position:relative;
 
         > li {
-            height:100%;
             left:0;
             opacity:0;
-            overflow:hidden;
             position:absolute;
             top:0;
             transition:opacity 0.5s;
@@ -26,16 +25,15 @@ body {
 
             &.active {
                 opacity:1;
+                z-index:1;
             }
-        }
-
-        h2 {
-            text-align:center;
         }
     }
 
     &-photo {
-        margin-bottom:0;
+        margin:0;
+        max-height:230px;
+        overflow:hidden;
         text-align:center;
 
         img {
@@ -45,23 +43,53 @@ body {
     }
 
     &-about {
-        background:fade(#333, 95%);
-        bottom:0;
-        box-sizing:border-box;
-        color:#ddd;
-        height:100%;
-        left:0;
-        padding:15px 20px;
-        position:absolute;
-        transform:translateY(101%);
-        transition:transform 0.5s ease 0.75s;
-        width:100%;
-
-        h3 {
+        padding:10px;
+        h2 {
             text-align:center;
+            margin:0 0 0.5em;
         }
     }
-    &-list:hover .active &-about {
+}
+
+.toc {
+    background:fade(#333, 95%);
+    height:100%;
+    left:0;
+    margin:0;
+    overflow:auto;
+    padding:0;
+    position:fixed;
+    top:0;
+    transform:translateY(-100%);
+    transition:transform 0.5s ease 0.2s;
+    width:100%;
+    z-index:2;
+
+    &-show {
         transform:translateY(0);
+    }
+
+    &-btn {
+        border:5px solid;
+        border-color:#c55 #c55 transparent transparent;
+        content:"";
+        cursor:pointer;
+        height:0;
+        position:absolute;
+        right:0;
+        top:0;
+        width:0;
+        z-index:2;
+    }
+
+    > li {
+        color:#ddd;
+        cursor:pointer;
+        margin:0;
+        padding:5px 10px;
+
+        &:hover {
+            background:fade(#000, 90%);
+        }
     }
 }

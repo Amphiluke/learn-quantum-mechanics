@@ -5,5 +5,5 @@ The widget lists some of the most outstanding scientists who made foundational c
 Use the following HTML to embed the widget into your website:
 
 ```html
-<iframe src="https://amphiluke.github.io/learn-quantum-mechanics/personalities/" scrolling="no" width="256" height="380" frameborder="0"></iframe>
+<iframe src="https://amphiluke.github.io/learn-quantum-mechanics/personalities/" scrolling="no" width="200" height="480" frameborder="0"></iframe>
 ```
