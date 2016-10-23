@@ -31,10 +31,6 @@ var config = {
         },
         scales: {
             xAxes: [{
-                scaleLabel: {
-                    display: true,
-                    labelString: "x"
-                },
                 type: "linear",
                 position: "bottom",
                 gridLines: {
@@ -45,10 +41,6 @@ var config = {
                 }
             }],
             yAxes: [{
-                scaleLabel: {
-                    display: true,
-                    labelString: "ψ(x)"
-                },
                 gridLines: {
                     tickMarkLength: 5
                 },
