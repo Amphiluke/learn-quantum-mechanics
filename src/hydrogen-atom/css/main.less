@@ -21,4 +21,28 @@ var {
 
 .ha-canvas {
     margin:0 auto;
+
+    &-wrap {
+        margin:0 auto;
+        position:relative;
+        width:400px;
+
+        &:before,
+        &:after {
+            font:italic 13px "Times New Roman",serif;
+            position:absolute;
+        }
+        &:before {
+            content:"R(r)";
+            left:0;
+            top:10px;
+            transform:rotate(-90deg);
+            transform-origin:0 100%;
+        }
+        &:after {
+            content:"r";
+            right:0;
+            top:100%
+        }
+    }
 }
