@@ -1,13 +1,10 @@
 "use strict";
 
-var utils = require("utils"),
+let utils = require("utils"),
     Chart = require("Chart"),
     waveFunction = require("./wave-function.js");
 
-var m = utils.AMU, // hydrogen
-    w = 9.140778e+13; // Hz
-
-var config = {
+let config = {
     type: "line",
     data: {
         datasets: [
@@ -64,17 +61,20 @@ var config = {
     }
 };
 
-config.data.datasets.forEach(function (dataset, n) {
-    var data = dataset.data = [],
-        i;
-    for (i = -3; i <= 3; i += 0.1) {
-        data.push({x: i, y: waveFunction(i * utils.BOHR_RADIUS, n, m, w)});
+const m = utils.AMU, // hydrogen
+    a0 = utils.BOHR_RADIUS,
+    w = 9.140778e+13; // Hz
+
+for (let [n, dataset] of config.data.datasets.entries()) {
+    let data = dataset.data = [];
+    for (let i = -3; i <= 3; i += 0.1) {
+        data.push({x: i, y: waveFunction(i * a0, n, m, w)});
     }
     dataset.showLine = (n < 4);
-});
+}
 
-var chart = {
-    create: function (ctx) {
+let chart = {
+    create(ctx) {
         if (this.chart) {
             return this.chart;
         }
@@ -85,10 +85,10 @@ var chart = {
         return this.chart;
     },
 
-    toggleSeries: function (n) {
-        var dataset = this.chart.data.datasets[n];
+    toggleSeries(n) {
+        let dataset = this.chart.data.datasets[n];
         if (!dataset) {
-            throw new Error("Series #" + n + " doesn't exist");
+            throw new Error(`Series #${n} doesn't exist`);
         }
         dataset.showLine = !dataset.showLine;
         this.chart.update();

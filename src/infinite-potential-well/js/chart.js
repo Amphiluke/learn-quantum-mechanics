@@ -1,11 +1,9 @@
 "use strict";
 
-var Chart = require("Chart"),
+let Chart = require("Chart"),
     waveFunction = require("./wave-function.js");
 
-var size = 10;
-
-var config = {
+let config = {
     type: "line",
     data: {
         datasets: [
@@ -62,17 +60,18 @@ var config = {
     }
 };
 
-config.data.datasets.forEach(function (dataset, n) {
-    var data = dataset.data = [],
-        i;
-    for (i = 0; i <= size; i += 0.1) {
+const size = 10;
+
+for (let [n, dataset] of config.data.datasets.entries()) {
+    let data = dataset.data = [];
+    for (let i = 0; i <= size; i += 0.1) {
         data.push({x: i, y: waveFunction(i, n + 1, size)});
     }
     dataset.showLine = (n < 4);
-});
+}
 
-var chart = {
-    create: function (ctx) {
+let chart = {
+    create(ctx) {
         if (this.chart) {
             return this.chart;
         }
@@ -83,10 +82,10 @@ var chart = {
         return this.chart;
     },
 
-    toggleSeries: function (n) {
-        var dataset = this.chart.data.datasets[n - 1];
+    toggleSeries(n) {
+        let dataset = this.chart.data.datasets[n - 1];
         if (!dataset) {
-            throw new Error("Series #" + n + " doesn't exist");
+            throw new Error(`Series #${n} doesn't exist`);
         }
         dataset.showLine = !dataset.showLine;
         this.chart.update();

@@ -1,8 +1,8 @@
 "use strict";
 
-var slider = require("./slider.js");
+let slider = require("./slider.js");
 
-var list = document.getElementById("pers-list"),
+let list = document.getElementById("pers-list"),
     toc = document.getElementById("toc");
 
 slider.init(list.children);
@@ -10,17 +10,17 @@ slider.init(list.children);
 list.addEventListener("mouseenter", slider.pause, false);
 list.addEventListener("mouseleave", slider.play, false);
 
-toc.innerHTML = Array.prototype.slice.call(list.querySelectorAll(".pers-about > h2"), 0).map(function (header, index) {
-    return "<li data-idx='" + index + "'>" + header.innerHTML + "</li>";
-}).join("");
+toc.innerHTML = [...list.querySelectorAll(".pers-about > h2")]
+    .map((header, index) => `<li data-idx="${index}">${header.innerHTML}</li>`)
+    .join("");
 
-document.getElementById("toc-btn").addEventListener("click", function () {
+document.getElementById("toc-btn").addEventListener("click", () => {
     slider.pause();
     toc.classList.add("toc-show");
 });
 
-toc.addEventListener("click", function (e) {
-    var index = e.target.getAttribute("data-idx");
+toc.addEventListener("click", ({target}) => {
+    let index = target.getAttribute("data-idx");
     if (typeof index === "string") {
         slider.goto(Number(index));
     }

@@ -1,7 +1,7 @@
 "use strict";
 
-var slider = {
-    init: function (items, autoPlay) {
+let slider = {
+    init(items, autoPlay) {
         if (this.items) {
             return;
         }
@@ -14,41 +14,39 @@ var slider = {
         }
     },
 
-    getRndOrder: function () {
-        var itemCount = this.items.length,
-            result = new Array(itemCount),
-            currIdx, rndIdx, tmpValue;
-        for (currIdx = 0; currIdx < itemCount; currIdx++) {
+    getRndOrder() {
+        let itemCount = this.items.length,
+            result = new Array(itemCount);
+        for (let currIdx = 0; currIdx < itemCount; currIdx++) {
             result[currIdx] = currIdx;
         }
-        for (currIdx = itemCount - 1; currIdx > 0; currIdx--) {
-            rndIdx = Math.floor(Math.random() * currIdx + 1);
-            tmpValue = result[currIdx];
+        for (let currIdx = itemCount - 1; currIdx > 0; currIdx--) {
+            let rndIdx = Math.floor(Math.random() * currIdx + 1);
+            let tmpValue = result[currIdx];
             result[currIdx] = result[rndIdx];
             result[rndIdx] = tmpValue;
         }
         return result;
     },
 
-    slide: function (index) {
-        var nextIndex = (index === undefined) ? this.activeIdx + 1 : index;
+    slide(index = slider.activeIdx + 1) {
         this.items[this.slideOrder[this.activeIdx]].classList.remove("active");
-        this.activeIdx = nextIndex % this.slideOrder.length;
+        this.activeIdx = index % this.slideOrder.length;
         this.items[this.slideOrder[this.activeIdx]].classList.add("active");
     },
 
-    play: function () {
+    play() {
         if (!this.intervalId) {
-            this.intervalId = setInterval(this.slide.bind(this), 10000);
+            this.intervalId = setInterval(() => this.slide(), 10000);
         }
     },
 
-    pause: function () {
+    pause() {
         clearInterval(this.intervalId);
         this.intervalId = null;
     },
 
-    goto: function (index) {
+    goto(index) {
         index %= this.slideOrder.length;
         if (index !== this.slideOrder[this.activeIdx]) {
             this.slide(this.slideOrder.indexOf(index));

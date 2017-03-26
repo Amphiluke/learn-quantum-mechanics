@@ -1,9 +1,9 @@
 "use strict";
 
-var Chart = require("Chart"),
+let Chart = require("Chart"),
     waveFunction = require("./wave-function.js");
 
-var config = {
+let config = {
     type: "line",
     data: {
         datasets: [{
@@ -50,21 +50,20 @@ var config = {
     }
 };
 
-var maxDists = [6, 15, 30, 50, 75, 90, 120];
+const maxDists = [6, 15, 30, 50, 75, 90, 120];
 
 function makeData(n, l) {
-    var data = [],
+    let data = [],
         max = maxDists[n] || maxDists[maxDists.length - 1],
-        step = max / 100,
-        i;
-    for (i = 0; i <= max; i += step) {
+        step = max / 100;
+    for (let i = 0; i <= max; i += step) {
         data.push({x: i, y: waveFunction(i, n, l)});
     }
     return data;
 }
 
-var chart = {
-    create: function (ctx, n, l) {
+let chart = {
+    create(ctx, n, l) {
         if (this.chart) {
             this.updateSeries(n, l);
             return this.chart;
@@ -77,7 +76,7 @@ var chart = {
         return this.chart;
     },
 
-    updateSeries: function (n, l) {
+    updateSeries(n, l) {
         this.chart.data.datasets[0].data = makeData(n, l);
         this.chart.update();
     }
