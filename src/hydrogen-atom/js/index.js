@@ -1,6 +1,6 @@
 "use strict";
 
-let chart = require("./chart.js");
+let chart = require("chart.js");
 
 let ui = {
     form: document.getElementById("ha-form"),

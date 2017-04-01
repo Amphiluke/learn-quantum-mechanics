@@ -2,7 +2,7 @@
 
 let utils = require("utils"),
     Chart = require("Chart"),
-    waveFunction = require("./wave-function.js");
+    waveFunction = require("wave-function.js");
 
 let config = {
     type: "line",

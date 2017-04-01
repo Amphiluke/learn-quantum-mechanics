@@ -28,13 +28,16 @@
         <p class="qho-canvas-wrap"><canvas id="qho-canvas" class="qho-canvas" width="400" height="250"></canvas></p>
     </form>
 
-    <script src="../../node_modules/systemjs/dist/system.js"></script>
+    <script src="../../vendor/system.js"></script>
     <script>
         "use strict";
         SystemJS.config({
             baseURL: "./js",
+            depCache: {
+                "index.js": ["chart.js", "wave-function.js", "Chart", "utils"]
+            },
             map: {
-                Chart: "../../node_modules/chart.js/dist/Chart.min.js",
+                Chart: "../../vendor/Chart.min.js",
                 utils: "../utils/utils.js"
             }
         });

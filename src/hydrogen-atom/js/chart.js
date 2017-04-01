@@ -1,7 +1,7 @@
 "use strict";
 
 let Chart = require("Chart"),
-    waveFunction = require("./wave-function.js");
+    waveFunction = require("wave-function.js");
 
 let config = {
     type: "line",

@@ -1,6 +1,6 @@
 "use strict";
 
-let chart = require("./chart.js");
+let chart = require("chart.js");
 
 chart.create(document.getElementById("ipw-canvas"));
 

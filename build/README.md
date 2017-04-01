@@ -1,0 +1,1 @@
+Production-ready files are automatically copied into this directory when you build the project via `npm run bulid` or `npm run bulid-legacy` (see the `build` and the `build-legacy` tasks in [`gulpfile.js`](../gulpfile.js)). These files are not under version control.

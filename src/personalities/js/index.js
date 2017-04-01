@@ -1,6 +1,6 @@
 "use strict";
 
-let slider = require("./slider.js");
+let slider = require("slider.js");
 
 let list = document.getElementById("pers-list"),
     toc = document.getElementById("toc");

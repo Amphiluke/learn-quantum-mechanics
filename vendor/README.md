@@ -1,0 +1,1 @@
+External dependencies will be automatically copied into this directory once you install the project locally via `npm install` (see the `dependencies` task in [`gulpfile.js`](../gulpfile.js)). These files are not under version control.
