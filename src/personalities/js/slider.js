@@ -1,7 +1,7 @@
 "use strict";
 
 let slider = {
-    init(items, autoPlay) {
+    init(items, {autoPlay = true, interval = 10000} = {}) {
         if (this.items) {
             return;
         }
@@ -9,6 +9,7 @@ let slider = {
         this.slideOrder = this.getRndOrder();
         this.activeIdx = this.slideOrder[Math.floor(Math.random() * this.slideOrder.length)];
         this.items[this.slideOrder[this.activeIdx]].classList.add("active");
+        this.interval = Math.max(interval, 1500);
         if (autoPlay !== false) {
             this.play();
         }
@@ -37,7 +38,7 @@ let slider = {
 
     play() {
         if (!this.intervalId) {
-            this.intervalId = setInterval(() => this.slide(), 10000);
+            this.intervalId = setInterval(() => this.slide(), this.interval);
         }
     },
 

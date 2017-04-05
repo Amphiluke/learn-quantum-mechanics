@@ -74,9 +74,14 @@ for (let [n, dataset] of config.data.datasets.entries()) {
 }
 
 let chart = {
-    create(ctx) {
+    create(ctx, options) {
         if (this.chart) {
             return this.chart;
+        }
+        if (options && Array.isArray(options.visibleSeries)) {
+            for (let [n, dataset] of config.data.datasets.entries()) {
+                dataset.showLine = options.visibleSeries.includes(n);
+            }
         }
         Object.defineProperty(this, "chart", {
             enumerable: true,
@@ -92,6 +97,14 @@ let chart = {
         }
         dataset.showLine = !dataset.showLine;
         this.chart.update();
+    },
+
+    isSeriesVisible(n) {
+        let dataset = this.chart.data.datasets[n];
+        if (!dataset) {
+            throw new Error(`Series #${n} doesn't exist`);
+        }
+        return dataset.showLine;
     }
 };
 

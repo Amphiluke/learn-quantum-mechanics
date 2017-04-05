@@ -1,0 +1,59 @@
+.load-overlay {
+    background:#fff;
+    bottom:0;
+    display:none;
+    left:0;
+    position:fixed;
+    right:0;
+    top:0;
+    z-index:10;
+
+    .loading & {
+        display:block;
+    }
+
+    &:before {
+        background:#000;
+        border-radius:50%;
+        content:"";
+        height:20px;
+        left:50%;
+        margin:-10px 0 0 -10px;
+        position:absolute;
+        top:50%;
+        width:20px;
+    }
+
+    @keyframes rotate {
+        0% {
+            transform:rotate(0);
+        }
+        100% {
+            transform:rotate(360deg);
+        }
+    }
+
+    .loader {
+        animation:rotate 2s linear 0s infinite;
+        border:1px solid #ddd;
+        border-radius:50%;
+        height:100px;
+        left:50%;
+        margin:-50px 0 0 -50px;
+        position:absolute;
+        top:50%;
+        width:100px;
+
+        &:before {
+            background:#000;
+            border-radius:50%;
+            content:"";
+            height:8px;
+            left:50%;
+            margin:0 0 0 -4px;
+            position:absolute;
+            top:-4px;
+            width:8px;
+        }
+    }
+}

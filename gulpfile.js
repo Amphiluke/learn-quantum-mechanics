@@ -3,7 +3,8 @@ let gulp = require("gulp"),
     CleanCSSPlugin = require("less-plugin-clean-css"),
     babel = require("gulp-babel"),
     replace = require("gulp-replace"),
-    del = require("del");
+    del = require("del"),
+    pkgJSON = require("./package.json");
 
 let taskRegistry = {
     dependencies() {
@@ -26,7 +27,10 @@ let taskRegistry = {
             stream = stream.pipe(replace(/<script/,
                 "<script src=\"../../vendor/polyfill.min.js\"></script>\n$&"));
         }
-        return stream.pipe(gulp.dest(outDir));
+        let version = pkgJSON.version;
+        return stream
+            .pipe(replace(/([?&])version=dev/g, `$1version=${version}`)) // avoid browser caching issues
+            .pipe(gulp.dest(outDir));
     },
 
     styles(outDir, isLegacy = false) {

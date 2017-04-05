@@ -1,7 +1,7 @@
 "use strict";
 
 let Chart = require("Chart"),
-    waveFunction = require("./wave-function.js");
+    waveFunction = require("wave-function.js");
 
 let config = {
     type: "line",
@@ -71,9 +71,14 @@ for (let [n, dataset] of config.data.datasets.entries()) {
 }
 
 let chart = {
-    create(ctx) {
+    create(ctx, options) {
         if (this.chart) {
             return this.chart;
+        }
+        if (options && Array.isArray(options.visibleSeries)) {
+            for (let [n, dataset] of config.data.datasets.entries()) {
+                dataset.showLine = options.visibleSeries.includes(n + 1);
+            }
         }
         Object.defineProperty(this, "chart", {
             enumerable: true,
@@ -89,6 +94,14 @@ let chart = {
         }
         dataset.showLine = !dataset.showLine;
         this.chart.update();
+    },
+
+    isSeriesVisible(n) {
+        let dataset = this.chart.data.datasets[n - 1];
+        if (!dataset) {
+            throw new Error(`Series #${n} doesn't exist`);
+        }
+        return dataset.showLine;
     }
 };
 

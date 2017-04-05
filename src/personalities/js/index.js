@@ -1,11 +1,12 @@
 "use strict";
 
-let slider = require("slider.js");
+let utils = require("utils"),
+    slider = require("slider.js");
 
 let list = document.getElementById("pers-list"),
     toc = document.getElementById("toc");
 
-slider.init(list.children);
+slider.init(list.children, {interval: Number(utils.getQuery("interval")) || undefined});
 
 list.addEventListener("mouseenter", slider.pause, false);
 list.addEventListener("mouseleave", slider.play, false);

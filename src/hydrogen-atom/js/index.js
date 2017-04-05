@@ -1,57 +1,74 @@
 "use strict";
 
-let chart = require("chart.js");
+let utils = require("utils"),
+    chart = require("chart.js"),
+    quantumNumbers = require("quantum-numbers.js");
 
 let ui = {
-    form: document.getElementById("ha-form"),
-    canvas: document.getElementById("ha-canvas"),
-    numN: document.getElementById("ha-num-n"),
-    numL: document.getElementById("ha-num-l")
+    elements: {
+        form: document.getElementById("ha-form"),
+        canvas: document.getElementById("ha-canvas"),
+        numN: document.getElementById("ha-num-n"),
+        numL: document.getElementById("ha-num-l")
+    },
+
+    init() {
+        if (utils.getQuery("controls") !== "0") {
+            this.syncInputs();
+            this.addEventHandlers();
+        } else {
+            this.elements.form.classList.add("hidden");
+        }
+    },
+
+    addEventHandlers() {
+        let form = this.elements.form;
+        form.addEventListener("change", ({target}) => {
+            let value = target.value.replace(/\D/g, "");
+            quantumNumbers[target.name] = Number(value);
+            this.syncInputs();
+            this.queueChartUpdate();
+        }, false);
+
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+            this.queueChartUpdate(true);
+        }, false);
+    },
+
+    syncInputs() {
+        let numN = this.elements.numN,
+            numL = this.elements.numL;
+        numN.max = quantumNumbers.nMax;
+        numN.min = quantumNumbers.nMin;
+        numN.value = quantumNumbers.n;
+        numL.max = quantumNumbers.lMax;
+        numL.min = quantumNumbers.lMin;
+        numL.value = quantumNumbers.l;
+    },
+
+    queueChartUpdate(asap) {
+        if (this.debounceTimerId) {
+            clearTimeout(this.debounceTimerId);
+        }
+        this.debounceTimerId = setTimeout(() => {
+            this.updateChart();
+            this.debounceTimerId = null;
+        }, asap ? 0 : 750);
+    },
+
+    updateChart() {
+        chart.updateSeries(quantumNumbers.n, quantumNumbers.l);
+    }
 };
 
-function fixInput(el) {
-    let value = el.value;
-    if (/\D/.test(value)) {
-        el.value = value.replace(/\D/g, "");
-    }
-    value = Number(el.value);
-    let min = Number(el.min);
-    let max = Number(el.max);
-    if (value < min) {
-        el.value = min;
-    } else if (value > max) {
-        el.value = max;
-    }
-}
+// Using `parseInt` to be sure that `undefined` won't be converted to 0
+quantumNumbers.n = Number.parseInt(utils.getQuery("n"));
+quantumNumbers.l = Number.parseInt(utils.getQuery("l"));
+chart.create(ui.elements.canvas, quantumNumbers.n, quantumNumbers.l);
 
-let debounceTimerId = null;
+ui.init();
 
-function queueChartUpdate(asap) {
-    if (debounceTimerId) {
-        clearTimeout(debounceTimerId);
-    }
-    debounceTimerId = setTimeout(updateChart, asap ? 0 : 750);
-}
-
-function updateChart() {
-    chart.updateSeries(Number(ui.numN.value), Number(ui.numL.value));
-    debounceTimerId = null;
-}
-
-chart.create(ui.canvas, Number(ui.numN.value), Number(ui.numL.value));
-
-ui.form.addEventListener("change", ({target}) => {
-    fixInput(target);
-    if (target === ui.numN) {
-        ui.numL.max = target.value - 1; // l = 0, 1, ..., n - 1
-        fixInput(ui.numL);
-    }
-    queueChartUpdate();
-}, false);
-
-ui.form.addEventListener("submit", e => {
-    e.preventDefault();
-    queueChartUpdate(true);
-}, false);
+document.body.classList.remove("loading");
 
 module.exports = chart;

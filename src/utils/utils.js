@@ -13,5 +13,21 @@ module.exports = Object.freeze({
             result *= n;
         }
         return result;
+    },
+
+    getQuery: function getQuery(param) {
+        let queryMap = getQuery.queryMap;
+        if (!queryMap) {
+            queryMap = new Map();
+            Object.defineProperty(getQuery, "queryMap", {value: queryMap}); // memoization
+            let query = window.location.search.slice(1);
+            if (query) {
+                for (let keyVal of query.split("&")) {
+                    let pair = keyVal.split("=");
+                    queryMap.set(decodeURIComponent(pair[0]), decodeURIComponent(pair[1] || ""));
+                }
+            }
+        }
+        return param ? queryMap.get(param) : new Map([...queryMap]);
     }
 });
