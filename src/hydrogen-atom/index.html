@@ -28,7 +28,7 @@
     </form>
     <p class="ha-canvas-wrap"><canvas id="ha-canvas" class="ha-canvas" width="400" height="250"></canvas></p>
 
-    <script src="../../vendor/system.js"></script>
+    <script src="../vendor/system.js"></script>
     <script>
         "use strict";
         SystemJS.config({
@@ -37,7 +37,7 @@
                 "index.js": ["chart.js", "quantum-numbers.js", "wave-function.js", "Chart", "utils"]
             },
             map: {
-                Chart: "../../vendor/Chart.min.js",
+                Chart: "../vendor/Chart.min.js",
                 utils: "../utils/utils.js"
             }
         });

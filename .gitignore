@@ -4,8 +4,8 @@ npm-debug.log
 
 *.css
 
-vendor/*
-!vendor/README.md
+src/vendor/*
+!src/vendor/README.md
 
 build/*
 !build/README.md

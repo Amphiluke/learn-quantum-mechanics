@@ -7,25 +7,27 @@ let gulp = require("gulp"),
     pkgJSON = require("./package.json");
 
 let taskRegistry = {
-    dependencies() {
-        let deps = [
-            "node_modules/systemjs/dist/system.js",
-            "node_modules/systemjs/dist/system-polyfills.js",
-            "node_modules/chart.js/dist/Chart.min.js",
-            "node_modules/babel-polyfill/dist/polyfill.min.js"
-        ];
-        return gulp.src(deps).pipe(gulp.dest("vendor"));
-    },
-
     clean() {
         return del(["build/**", "!build", "!build/README.md"]);
+    },
+
+    dependencies(outDir, isLegacy = false) {
+        let deps = [
+            "node_modules/systemjs/dist/system.js",
+            "node_modules/chart.js/dist/Chart.min.js"
+        ];
+        if (isLegacy) {
+            deps.push("node_modules/systemjs/dist/system-polyfills.js",
+                "node_modules/babel-polyfill/dist/polyfill.min.js");
+        }
+        return gulp.src(deps).pipe(gulp.dest(`${outDir}/vendor`));
     },
 
     html(outDir, isLegacy = false) {
         let stream = gulp.src("src/**/index.html");
         if (isLegacy) {
             stream = stream.pipe(replace(/<script/,
-                "<script src=\"../../vendor/polyfill.min.js\"></script>\n$&"));
+                "<script src=\"../vendor/polyfill.min.js\"></script>\n$&"));
         }
         let version = pkgJSON.version;
         return stream
@@ -52,7 +54,7 @@ let taskRegistry = {
             // TODO: uncomment "babili" once the issue is fixed
             presets: isLegacy ? ["es2015" /*, "babili"*/] : ["babili"]
         };
-        return gulp.src("src/**/*.js")
+        return gulp.src(["src/**/*.js", "!src/vendor/*"])
             .pipe(babel(config))
             .pipe(gulp.dest(outDir));
     }
@@ -60,11 +62,11 @@ let taskRegistry = {
 
 // region Dev tasks
 
-gulp.task("dependencies", taskRegistry.dependencies);
+gulp.task("dependencies-dev", () => taskRegistry.dependencies("src"));
 
 gulp.task("styles-dev", () => taskRegistry.styles("src"));
 
-gulp.task("prepare", ["dependencies", "styles-dev"]);
+gulp.task("prepare", ["dependencies-dev", "styles-dev"]);
 
 // endregion
 
@@ -75,6 +77,9 @@ gulp.task("prepare", ["dependencies", "styles-dev"]);
 // see https://github.com/gulpjs/gulp/blob/master/docs/recipes/running-tasks-in-series.md
 gulp.task("clean", taskRegistry.clean);
 
+gulp.task("dependencies-prod", ["clean"], () => taskRegistry.dependencies("build"));
+gulp.task("dependencies-prod-legacy", ["clean"], () => taskRegistry.dependencies("build", true));
+
 gulp.task("html-prod", ["clean"], () => taskRegistry.html("build"));
 gulp.task("html-prod-legacy", ["clean"], () => taskRegistry.html("build", true));
 
@@ -84,7 +89,7 @@ gulp.task("styles-prod-legacy", ["clean"], () => taskRegistry.styles("build", tr
 gulp.task("scripts-prod", ["clean"], () => taskRegistry.scripts("build"));
 gulp.task("scripts-prod-legacy", ["clean"], () => taskRegistry.scripts("build", true));
 
-gulp.task("build", ["html-prod", "styles-prod", "scripts-prod"]);
-gulp.task("build-legacy", ["html-prod-legacy", "styles-prod-legacy", "scripts-prod-legacy"]);
+gulp.task("build", ["dependencies-prod", "html-prod", "styles-prod", "scripts-prod"]);
+gulp.task("build-legacy", ["dependencies-prod-legacy", "html-prod-legacy", "styles-prod-legacy", "scripts-prod-legacy"]);
 
 // endregion
