@@ -1,7 +1,7 @@
 "use strict";
 
 var Chart = require("Chart"),
-    waveFunction = require("./wave-function.js");
+    waveFunction = require("wave-function.js");
 
 var config = {
     type: "line",
@@ -55,16 +55,15 @@ var maxDists = [6, 15, 30, 50, 75, 90, 120];
 function makeData(n, l) {
     var data = [],
         max = maxDists[n] || maxDists[maxDists.length - 1],
-        step = max / 100,
-        i;
-    for (i = 0; i <= max; i += step) {
-        data.push({x: i, y: waveFunction(i, n, l)});
+        step = max / 100;
+    for (var i = 0; i <= max; i += step) {
+        data.push({ x: i, y: waveFunction(i, n, l) });
     }
     return data;
 }
 
 var chart = {
-    create: function (ctx, n, l) {
+    create: function create(ctx, n, l) {
         if (this.chart) {
             this.updateSeries(n, l);
             return this.chart;
@@ -76,8 +75,7 @@ var chart = {
         });
         return this.chart;
     },
-
-    updateSeries: function (n, l) {
+    updateSeries: function updateSeries(n, l) {
         this.chart.data.datasets[0].data = makeData(n, l);
         this.chart.update();
     }

@@ -1,7 +1,13 @@
 "use strict";
 
 var slider = {
-    init: function (items, autoPlay) {
+    init: function init(items) {
+        var _ref = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {},
+            _ref$autoPlay = _ref.autoPlay,
+            autoPlay = _ref$autoPlay === undefined ? true : _ref$autoPlay,
+            _ref$interval = _ref.interval,
+            interval = _ref$interval === undefined ? 10000 : _ref$interval;
+
         if (this.items) {
             return;
         }
@@ -9,46 +15,46 @@ var slider = {
         this.slideOrder = this.getRndOrder();
         this.activeIdx = this.slideOrder[Math.floor(Math.random() * this.slideOrder.length)];
         this.items[this.slideOrder[this.activeIdx]].classList.add("active");
+        this.interval = Math.max(interval, 1500);
         if (autoPlay !== false) {
             this.play();
         }
     },
-
-    getRndOrder: function () {
+    getRndOrder: function getRndOrder() {
         var itemCount = this.items.length,
-            result = new Array(itemCount),
-            currIdx, rndIdx, tmpValue;
-        for (currIdx = 0; currIdx < itemCount; currIdx++) {
+            result = new Array(itemCount);
+        for (var currIdx = 0; currIdx < itemCount; currIdx++) {
             result[currIdx] = currIdx;
         }
-        for (currIdx = itemCount - 1; currIdx > 0; currIdx--) {
-            rndIdx = Math.floor(Math.random() * currIdx + 1);
-            tmpValue = result[currIdx];
-            result[currIdx] = result[rndIdx];
+        for (var _currIdx = itemCount - 1; _currIdx > 0; _currIdx--) {
+            var rndIdx = Math.floor(Math.random() * _currIdx + 1);
+            var tmpValue = result[_currIdx];
+            result[_currIdx] = result[rndIdx];
             result[rndIdx] = tmpValue;
         }
         return result;
     },
+    slide: function slide() {
+        var index = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : slider.activeIdx + 1;
 
-    slide: function (index) {
-        var nextIndex = (index === undefined) ? this.activeIdx + 1 : index;
         this.items[this.slideOrder[this.activeIdx]].classList.remove("active");
-        this.activeIdx = nextIndex % this.slideOrder.length;
+        this.activeIdx = index % this.slideOrder.length;
         this.items[this.slideOrder[this.activeIdx]].classList.add("active");
     },
+    play: function play() {
+        var _this = this;
 
-    play: function () {
         if (!this.intervalId) {
-            this.intervalId = setInterval(this.slide.bind(this), 10000);
+            this.intervalId = setInterval(function () {
+                return _this.slide();
+            }, this.interval);
         }
     },
-
-    pause: function () {
+    pause: function pause() {
         clearInterval(this.intervalId);
         this.intervalId = null;
     },
-
-    goto: function (index) {
+    goto: function goto(index) {
         index %= this.slideOrder.length;
         if (index !== this.slideOrder[this.activeIdx]) {
             this.slide(this.slideOrder.indexOf(index));

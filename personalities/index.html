@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Основоположники квантовой механики</title>
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/main.css?version=0.2.0">
 </head>
 <body>
     <!--<h1>Основоположники квантовой механики</h1>-->
@@ -113,11 +113,18 @@
     <div id="toc-btn" class="toc-btn" title="Список персоналий"></div>
     <ul id="toc" class="toc"></ul>
 
-    <script src="../vendor/system.js"></script>
+    <script src="../vendor/polyfill.min.js"></script>
+<script src="../vendor/system.js"></script>
     <script>
         "use strict";
         SystemJS.config({
-            baseURL: "./js"
+            baseURL: "./js",
+            depCache: {
+                "index.js": ["slider.js", "utils"]
+            },
+            map: {
+                utils: "../utils/utils.js"
+            }
         });
         SystemJS.import("index.js");
     </script>
