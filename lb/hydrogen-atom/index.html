@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Радиальные волновые функции атома водорода</title>
+    <link rel="stylesheet" href="css/main.css?version=0.2.0">
+</head>
+<body class="loading">
+    <div class="load-overlay"><div class="loader"></div></div>
+
+    <!--<h1>Радиальные волновые функции атома водорода</h1>-->
+
+    <form action="#" id="ha-form" autocomplete="off">
+        <p>Главное (<var>n</var>) и орбитальное (<var>l</var>) квантовые числа:</p>
+        <p class="ha-controls">
+            <label>
+                <var>n</var> =
+                <input type="number" id="ha-num-n" name="n" min="1" max="7" value="4" required>
+            </label>
+            <label>
+                <var>l</var> =
+                <input type="number" id="ha-num-l" name="l" min="0" max="3" value="2" required>
+            </label>
+            <input type="submit" value="&#x21BA;">
+        </p>
+    </form>
+    <p class="ha-canvas-wrap"><canvas id="ha-canvas" class="ha-canvas" width="400" height="250"></canvas></p>
+
+    <script src="../vendor/polyfill.min.js"></script>
+<script src="../vendor/system.js"></script>
+    <script>
+        "use strict";
+        SystemJS.config({
+            baseURL: "./js",
+            depCache: {
+                "index.js": ["chart.js", "quantum-numbers.js", "wave-function.js", "Chart", "utils"]
+            },
+            map: {
+                Chart: "../vendor/Chart.min.js",
+                utils: "../utils/utils.js"
+            }
+        });
+        SystemJS.import("index.js");
+    </script>
+</body>
+</html>

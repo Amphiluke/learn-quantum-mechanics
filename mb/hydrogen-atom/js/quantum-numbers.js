@@ -1,0 +1,1 @@
+"use strict";var _NumberisInteger=Number.isInteger;let n=4,l=2;module.exports={get nMax(){return 7},get nMin(){return 1},get lMax(){return n-1},get lMin(){return 0},get n(){return n},set n(a){_NumberisInteger(a)&&a!==n&&a<=this.nMax&&a>=this.nMin&&(n=a,l=Math.min(l,this.lMax))},get l(){return l},set l(a){_NumberisInteger(a)&&a!==l&&a<=this.lMax&&a>=this.lMin&&(l=a)}};
