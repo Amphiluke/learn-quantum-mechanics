@@ -93,32 +93,9 @@ var chart = {
             return this.chart;
         }
         if (options && Array.isArray(options.visibleSeries)) {
-            var _iteratorNormalCompletion2 = true;
-            var _didIteratorError2 = false;
-            var _iteratorError2 = undefined;
-
-            try {
-                for (var _iterator2 = config.data.datasets.entries()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-                    var _step2$value = _slicedToArray(_step2.value, 2),
-                        n = _step2$value[0],
-                        dataset = _step2$value[1];
-
-                    dataset.showLine = options.visibleSeries.includes(n);
-                }
-            } catch (err) {
-                _didIteratorError2 = true;
-                _iteratorError2 = err;
-            } finally {
-                try {
-                    if (!_iteratorNormalCompletion2 && _iterator2.return) {
-                        _iterator2.return();
-                    }
-                } finally {
-                    if (_didIteratorError2) {
-                        throw _iteratorError2;
-                    }
-                }
-            }
+            config.data.datasets.forEach(function (dataset, n) {
+                dataset.showLine = options.visibleSeries.includes(n);
+            });
         }
         Object.defineProperty(this, "chart", {
             enumerable: true,
@@ -126,6 +103,22 @@ var chart = {
         });
         return this.chart;
     },
+
+
+    get visibleSeries() {
+        return this.chart.data.datasets.map(function (dataset, index) {
+            return dataset.showLine ? index : -1;
+        }).filter(function (index) {
+            return index > -1;
+        });
+    },
+    set visibleSeries(series) {
+        this.chart.data.datasets.forEach(function (dataset, n) {
+            dataset.showLine = series.includes(n);
+        });
+        this.chart.update();
+    },
+
     toggleSeries: function toggleSeries(n) {
         var dataset = this.chart.data.datasets[n];
         if (!dataset) {
@@ -133,13 +126,6 @@ var chart = {
         }
         dataset.showLine = !dataset.showLine;
         this.chart.update();
-    },
-    isSeriesVisible: function isSeriesVisible(n) {
-        var dataset = this.chart.data.datasets[n];
-        if (!dataset) {
-            throw new Error("Series #" + n + " doesn't exist");
-        }
-        return dataset.showLine;
     }
 };
 

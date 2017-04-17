@@ -1,1 +1,1 @@
-"use strict";function waveFunc(a,b,c){return Math.sqrt(2/c)*Math.sin(b*Math.PI*a/c)}module.exports=waveFunc;
+"use strict";function a(b,c,d){return Math.sqrt(2/d)*Math.sin(c*Math.PI*b/d)}module.exports=a;

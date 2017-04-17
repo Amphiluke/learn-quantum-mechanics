@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Радиальные волновые функции атома водорода</title>
-    <link rel="stylesheet" href="css/main.css?version=0.2.0">
+    <link rel="stylesheet" href="css/main.css?version=0.3.0">
 </head>
 <body class="loading">
     <div class="load-overlay"><div class="loader"></div></div>
@@ -35,11 +35,12 @@
         SystemJS.config({
             baseURL: "./js",
             depCache: {
-                "index.js": ["chart.js", "quantum-numbers.js", "wave-function.js", "Chart", "utils"]
+                "index.js": ["chart.js", "quantum-numbers.js", "wave-function.js", "Chart", "utils", "api"]
             },
             map: {
                 Chart: "../vendor/Chart.min.js",
-                utils: "../utils/utils.js"
+                utils: "../utils/utils.js",
+                api: "../utils/api.js"
             }
         });
         SystemJS.import("index.js");
