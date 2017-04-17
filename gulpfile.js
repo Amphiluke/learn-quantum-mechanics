@@ -48,11 +48,13 @@ let taskRegistry = {
     },
 
     scripts(outDir, isLegacy = false) {
+        // Mangle top level identifiers as all files are modules
+        let babiliPreset = ["babili", {mangle: {topLevel: true}}];
         let config = {
             // Using presets babili & es2015 together results in broken code
             // (see https://github.com/babel/babili/issues/485)
-            // TODO: uncomment "babili" once the issue is fixed
-            presets: isLegacy ? ["es2015" /*, "babili"*/] : ["babili"]
+            // TODO: uncomment “babiliPreset” once the issue is fixed
+            presets: isLegacy ? ["es2015" /*, babiliPreset*/] : [babiliPreset]
         };
         return gulp.src(["src/**/*.js", "!src/vendor/*"])
             .pipe(babel(config))

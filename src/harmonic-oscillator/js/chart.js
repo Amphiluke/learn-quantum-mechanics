@@ -79,15 +79,27 @@ let chart = {
             return this.chart;
         }
         if (options && Array.isArray(options.visibleSeries)) {
-            for (let [n, dataset] of config.data.datasets.entries()) {
+            config.data.datasets.forEach((dataset, n) => {
                 dataset.showLine = options.visibleSeries.includes(n);
-            }
+            });
         }
         Object.defineProperty(this, "chart", {
             enumerable: true,
             value: new Chart(ctx, config)
         });
         return this.chart;
+    },
+
+    get visibleSeries() {
+        return this.chart.data.datasets
+            .map((dataset, index) => dataset.showLine ? index : -1)
+            .filter(index => index > -1);
+    },
+    set visibleSeries(series) {
+        this.chart.data.datasets.forEach((dataset, n) => {
+            dataset.showLine = series.includes(n);
+        });
+        this.chart.update();
     },
 
     toggleSeries(n) {
@@ -97,14 +109,6 @@ let chart = {
         }
         dataset.showLine = !dataset.showLine;
         this.chart.update();
-    },
-
-    isSeriesVisible(n) {
-        let dataset = this.chart.data.datasets[n];
-        if (!dataset) {
-            throw new Error(`Series #${n} doesn't exist`);
-        }
-        return dataset.showLine;
     }
 };
 

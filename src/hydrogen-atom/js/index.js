@@ -1,6 +1,7 @@
 "use strict";
 
 let utils = require("utils"),
+    api = require("api"),
     chart = require("chart.js"),
     quantumNumbers = require("quantum-numbers.js");
 
@@ -13,38 +14,44 @@ let ui = {
     },
 
     init() {
-        if (utils.getQuery("controls") !== "0") {
-            this.syncInputs();
-            this.addEventHandlers();
-        } else {
+        if (utils.getQuery("controls") === "0") {
             this.elements.form.classList.add("hidden");
         }
+        this.syncInputs();
+        this.addEventHandlers();
     },
 
     addEventHandlers() {
-        let form = this.elements.form;
-        form.addEventListener("change", ({target}) => {
-            let value = target.value.replace(/\D/g, "");
-            quantumNumbers[target.name] = Number(value);
-            this.syncInputs();
-            this.queueChartUpdate();
-        }, false);
+        if (utils.getQuery("controls") !== "0") {
+            let form = this.elements.form;
+            form.addEventListener("change", this.quantumNumberChangeHandler.bind(this), false);
+            form.addEventListener("submit", this.submitHandler.bind(this), false);
+        }
+    },
 
-        form.addEventListener("submit", e => {
-            e.preventDefault();
-            this.queueChartUpdate(true);
-        }, false);
+    quantumNumberChangeHandler({target}) {
+        let value = target.value.replace(/\D/g, "");
+        quantumNumbers[target.name] = Number(value);
+        this.syncInputs();
+        this.queueChartUpdate();
+        api.emit("changeQuantumNumbers");
+    },
+
+    submitHandler(e) {
+        e.preventDefault();
+        this.queueChartUpdate(true);
     },
 
     syncInputs() {
-        let numN = this.elements.numN,
-            numL = this.elements.numL;
-        numN.max = quantumNumbers.nMax;
-        numN.min = quantumNumbers.nMin;
-        numN.value = quantumNumbers.n;
-        numL.max = quantumNumbers.lMax;
-        numL.min = quantumNumbers.lMin;
-        numL.value = quantumNumbers.l;
+        if (utils.getQuery("controls") !== "0") {
+            let {numN, numL} = this.elements;
+            numN.max = quantumNumbers.nMax;
+            numN.min = quantumNumbers.nMin;
+            numN.value = quantumNumbers.n;
+            numL.max = quantumNumbers.lMax;
+            numL.min = quantumNumbers.lMin;
+            numL.value = quantumNumbers.l;
+        }
     },
 
     queueChartUpdate(asap) {
@@ -62,6 +69,29 @@ let ui = {
     }
 };
 
+api.init({
+    widget: "HA",
+    messageData: {
+        changeQuantumNumbers() {
+            return {n: quantumNumbers.n, l: quantumNumbers.l};
+        }
+    },
+    methods: {
+        /**
+         * Apply new quantum numbers and update the chart
+         * @param {Number} [n=quantumNumbers.n] - The principal quantum number
+         * @param {Number} [l=quantumNumbers.l] - The angular momentum quantum number
+         */
+        setQuantumNumbers(n = quantumNumbers.n, l = quantumNumbers.l) {
+            quantumNumbers.n = n;
+            quantumNumbers.l = l;
+            ui.syncInputs();
+            ui.queueChartUpdate(true);
+            api.emit("changeQuantumNumbers");
+        }
+    }
+});
+
 // Using `parseInt` to be sure that `undefined` won't be converted to 0
 quantumNumbers.n = Number.parseInt(utils.getQuery("n"));
 quantumNumbers.l = Number.parseInt(utils.getQuery("l"));
@@ -71,4 +101,4 @@ ui.init();
 
 document.body.classList.remove("loading");
 
-module.exports = chart;
+module.exports = {};

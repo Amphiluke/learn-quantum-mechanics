@@ -36,11 +36,12 @@
         SystemJS.config({
             baseURL: "./js",
             depCache: {
-                "index.js": ["chart.js", "wave-function.js", "Chart", "utils"]
+                "index.js": ["chart.js", "wave-function.js", "Chart", "utils", "api"]
             },
             map: {
                 Chart: "../vendor/Chart.min.js",
-                utils: "../utils/utils.js"
+                utils: "../utils/utils.js",
+                api: "../utils/api.js"
             }
         });
         SystemJS.import("index.js");
