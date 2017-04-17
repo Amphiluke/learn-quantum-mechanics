@@ -32,7 +32,7 @@ https://amphiluke.github.io/learn-quantum-mechanics/mb/hydrogen-atom/?n=5&l=4&co
 
 ### API
 
-You may also interact with the widget programmatically via a simple programming interface based on the cross-document messaging API. The widget provides a few [methods](README.md#methods) you may invoke as well as [events](README.md#events) you may subscribe to.
+You may also interact with the widget programmatically via a simple programming interface based on the cross-document messaging API. The widget provides a few [methods](#methods) you may invoke as well as [events](#events) you may subscribe to.
 
 #### Methods
 

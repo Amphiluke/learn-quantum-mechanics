@@ -22,7 +22,7 @@ There are two builds of the widget: the first one is for modern browsers (mb) th
 You may customize some of the widget defaults using the following optional GET parameters in the widget's URL:
 
 * `interval` — the time of displaying a single slide in ms (by default, `interval` is 10 seconds);
-* `autoPlay` — enables (`1`) or disables (`0`) auto-rotation of slides (defaults to `1`). Disabling of auto-rotation is useful if you want to change slides programmatically through [widget's API](README.md#showslide).
+* `autoPlay` — enables (`1`) or disables (`0`) auto-rotation of slides (defaults to `1`). Disabling of auto-rotation is useful if you want to change slides programmatically through [widget's API](#showslidepers).
 
 *E.g.:* To set the slide rotation time to 5 seconds (5000 ms), use the following URL:
 ```
@@ -31,7 +31,7 @@ https://amphiluke.github.io/learn-quantum-mechanics/mb/personalities/?interval=5
 
 ### API
 
-You may also interact with the widget programmatically via a simple programming interface based on the cross-document messaging API. The widget provides a few [methods](README.md#methods) you may invoke as well as [events](README.md#events) you may subscribe to.
+You may also interact with the widget programmatically via a simple programming interface based on the cross-document messaging API. The widget provides a few [methods](#methods) you may invoke as well as [events](#events) you may subscribe to.
 
 #### Methods
 
@@ -50,7 +50,7 @@ Here are the methods you may use for programming the widget.
 
 ##### `showSlide(pers)`
 
-Show the slide with a person identified by the given predefined name. The details of how to get all the predefined person names is given in the description of the [`listPersons` event](README.md#listpersons).
+Show the slide with a person identified by the given predefined name. The details of how to get all the predefined person names is given in the description of the [`listPersons` event](#listpersons).
 
 ```javascript
 // Show the slide about Richard Feynman
@@ -79,4 +79,4 @@ The events provided by the widget are listed below.
 
 ##### `listPersons`
 
-The `listPersons` event is sent right after the widget initialisation. The `data` property in the event object is a map with predefined person names used as keys, and localized full person names as values. You will pass one of the predefined person names as an argument of the [`showSlide` method](README.md#showslide) to change slides programmatically.
+The `listPersons` event is sent right after the widget initialisation. The `data` property in the event object is a map with predefined person names used as keys, and localized full person names as values. You will pass one of the predefined person names as an argument of the [`showSlide` method](#showslidepers) to change slides programmatically.
