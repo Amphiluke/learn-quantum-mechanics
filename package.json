@@ -1,6 +1,6 @@
 {
   "name": "learn-quantum-mechanics",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Simple widgets for learning Quantum Mechanics",
   "main": "index.js",
   "scripts": {
@@ -38,8 +38,10 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-less": "^3.3.0",
+    "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
     "less": "^2.7.2",
-    "less-plugin-clean-css": "^1.5.1"
+    "less-plugin-clean-css": "^1.5.1",
+    "merge-stream": "^1.0.1"
   }
 }

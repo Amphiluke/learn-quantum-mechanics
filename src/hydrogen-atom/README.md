@@ -9,13 +9,10 @@ The widget provides an interactive chart displaying the radial part of the [wave
 Use the following HTML to embed the widget into your website:
 
 ```html
-<iframe src="https://amphiluke.github.io/learn-quantum-mechanics/mb/hydrogen-atom/" scrolling="no" width="430" height="365" frameborder="0"></iframe>
+<iframe src="https://amphiluke.github.io/learn-quantum-mechanics/mb/hydrogen-atom/en.html" width="430" height="365" scrolling="no" frameborder="0"></iframe>
 ```
 
-There are two builds of the widget: the first one is for modern browsers (mb) that *do* [support ECMAScript 2015](https://kangax.github.io/compat-table/es6/), and the other one is for legacy browsers (lb) that *don't*. These builds provide the same functionality, but the build for modern browsers (mb) is believed to have better performance. However if you need support for IE then the build for legacy browsers (lb) is your choice. To use either of the two builds just choose the appropriate widget URL:
-
-* `https://amphiluke.github.io/learn-quantum-mechanics/mb/hydrogen-atom/` for modern browsers;
-* `https://amphiluke.github.io/learn-quantum-mechanics/lb/hydrogen-atom/` for legacy browsers.
+The widget URL you will use depends on whether [legacy browser support](../../README.md#browser-compatibility) is required or not, and also on which [localization of the widget](../../README.md#widget-localization) do you prefer. For example to embed Russian-localized widget with legacy browser support, use this URL: `https://amphiluke.github.io/learn-quantum-mechanics/lb/hydrogen-atom/ru.html`.
 
 ### Customization
 
@@ -27,25 +24,14 @@ You may customize widget appearance and some of the defaults using the following
 
 *E.g.:* To display eigenstate for *n* = 5 and *l* = 4, and hide controls, use the following URL:
 ```
-https://amphiluke.github.io/learn-quantum-mechanics/mb/hydrogen-atom/?n=5&l=4&controls=0
+https://amphiluke.github.io/learn-quantum-mechanics/mb/hydrogen-atom/en.html?n=5&l=4&controls=0
 ```
 
 ### API
 
-You may also interact with the widget programmatically via a simple programming interface based on the cross-document messaging API. The widget provides a few [methods](#methods) you may invoke as well as [events](#events) you may subscribe to.
+:warning: To use the widget API, first be sure to read the [common notes](../../README.md#widget-apis) on widget programming.
 
 #### Methods
-
-All you need to invoke some of the widget's API methods is [posting a message](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage) to the widget iframe window.
-
-```javascript
-let widgetIframe = document.getElementById("widget-iframe-id"); // widget iframe DOM element
-let widgetWindow = widgetIframe.contentWindow;
-widgetWindow.postMessage({
-    method: "method_name", // specify actual method name
-    args: ["argument1", "argument2"] // pass any arguments required by the method
-}, "https://amphiluke.github.io");
-```
 
 Here are the methods you may use for programming the widget.
 
@@ -63,21 +49,15 @@ widgetWindow.postMessage({method: "setQuantumNumbers", args: [, 3]}, "https://am
 
 #### Events
 
-You may subscribe to the widget events by adding the `message` event listener on the `window` object.
+Events triggered by the widget can be identified by the value `"HA"` (Hydrogen Atom) of the `widget` property in the `message` event data.
 
 ```javascript
 window.addEventListener("message", ({data, origin}) => {
-    if (origin === "https://amphiluke.github.io") {
-        // work with the `data` object ...
+    if (origin === "https://amphiluke.github.io" && data.widget === "HA") {
+        console.log("The event '%s' is triggered. Event data: %O", data.event, data.data);
     }
 }, false);
 ```
-
-The `data` object sent with any widget event has the following properties:
-
-* `widget` — a string `"HA"` (Hydrogen Atom). Useful for determining which widget has triggered the event (if you have more than one widget on the page);
-* `event` — a string containing the event name;
-* `data` — event specific data.
 
 The events provided by the widget are listed below.
 

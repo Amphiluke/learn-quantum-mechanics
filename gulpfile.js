@@ -3,8 +3,11 @@ let gulp = require("gulp"),
     CleanCSSPlugin = require("less-plugin-clean-css"),
     babel = require("gulp-babel"),
     replace = require("gulp-replace"),
+    rename = require("gulp-rename"),
     del = require("del"),
-    pkgJSON = require("./package.json");
+    merge = require("merge-stream"),
+    pkgJSON = require("./package.json"),
+    i18n = require("./src/i18n.json");
 
 let taskRegistry = {
     clean() {
@@ -24,15 +27,23 @@ let taskRegistry = {
     },
 
     html(outDir, isLegacy = false) {
-        let stream = gulp.src("src/**/index.html");
-        if (isLegacy) {
-            stream = stream.pipe(replace(/<script/,
-                "<script src=\"../vendor/polyfill.min.js\"></script>\n$&"));
-        }
-        let version = pkgJSON.version;
-        return stream
-            .pipe(replace(/([?&])version=dev/g, `$1version=${version}`)) // avoid browser caching issues
-            .pipe(gulp.dest(outDir));
+        let re = /<!--\s*@t:([\w.]+)\s*-->(.*?)<!--\s*@t\s*-->/g;
+        let streams = Object.keys(i18n).map(lang => {
+            let stream = gulp.src("src/**/index.html");
+            if (isLegacy) {
+                stream = stream.pipe(replace(/<script/,
+                    "<script src=\"../vendor/polyfill.min.js\"></script>\n$&"));
+            }
+            let version = pkgJSON.version;
+            let phrases = i18n[lang];
+            return stream
+                .pipe(replace(/([?&])version=dev/g, `$1version=${version}`)) // avoid browser caching issues
+                .pipe(gulp.dest(outDir))
+                .pipe(replace(re, (match, token, text) => phrases[token] || text))
+                .pipe(rename({basename: lang}))
+                .pipe(gulp.dest(outDir));
+        });
+        return merge(streams);
     },
 
     styles(outDir, isLegacy = false) {
