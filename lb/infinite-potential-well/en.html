@@ -4,31 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- @t:QHO.title --><title>Wave functions of the quantum harmonic oscillator</title><!-- @t -->
+    <title>Wave functions of the particle in a box</title>
     <link rel="stylesheet" href="css/main.css?version=0.4.0">
 </head>
 <body class="loading">
     <div class="load-overlay"><div class="loader"></div></div>
 
-    <form action="#" id="qho-form" autocomplete="off">
-        <p><!-- @t:QHO.switchText -->Show wave functions for <var>n</var>:<!-- @t --></p>
-        <p id="qho-switcher" class="qho-switcher">
-            <label><input type="checkbox" value="0" checked> 0</label>
+    <form action="#" id="ipw-form" autocomplete="off">
+        <p>Show wave functions for <var>n</var>:</p>
+        <p id="ipw-switcher" class="ipw-switcher">
             <label><input type="checkbox" value="1" checked> 1</label>
             <label><input type="checkbox" value="2" checked> 2</label>
             <label><input type="checkbox" value="3" checked> 3</label>
-            <label><input type="checkbox" value="4"> 4</label>
+            <label><input type="checkbox" value="4" checked> 4</label>
             <label><input type="checkbox" value="5"> 5</label>
             <label><input type="checkbox" value="6"> 6</label>
             <label><input type="checkbox" value="7"> 7</label>
             <label><input type="checkbox" value="8"> 8</label>
             <label><input type="checkbox" value="9"> 9</label>
             <label><input type="checkbox" value="10"> 10</label>
+            <label><input type="checkbox" value="11"> 11</label>
         </p>
     </form>
-    <p class="qho-canvas-wrap"><canvas id="qho-canvas" class="qho-canvas" width="400" height="250"></canvas></p>
+    <p class="ipw-canvas-wrap"><canvas id="ipw-canvas" class="ipw-canvas" width="400" height="250"></canvas></p>
 
-    <script src="../vendor/system.js"></script>
+    <script src="../vendor/polyfill.min.js"></script>
+<script src="../vendor/system.js"></script>
     <script>
         "use strict";
         SystemJS.config({
