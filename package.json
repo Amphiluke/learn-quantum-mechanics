@@ -1,0 +1,33 @@
+{
+  "name": "learn-quantum-mechanics-site",
+  "version": "1.0.0",
+  "description": "Online constructor of the widgets for learinig quantum mechanics",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint scripts/**",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel scripts/main.js -o scripts/main-prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Amphiluke/learn-quantum-mechanics.git"
+  },
+  "author": "Amphiluke",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Amphiluke/learn-quantum-mechanics/issues"
+  },
+  "homepage": "https://github.com/Amphiluke/learn-quantum-mechanics#readme",
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "normalize.css": "^6.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.24.1",
+    "babel-preset-babili": "0.0.12",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^3.19.0",
+    "less": "^2.7.2",
+    "less-plugin-clean-css": "^1.5.1"
+  }
+}

@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Widgets for learning Quantum Mechanics</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>Widgets for learning Quantum Mechanics</h1>
+    </header>
+    <form action="#" autocomplete="off" id="w-form">
+        <div class="w-config">
+            <fieldset>
+                <legend>Widget type</legend>
+                <div class="control-row">
+                    <label for="w-type">Choose one of the widgets</label><br>
+                    <select id="w-type">
+                        <option value="IPW" selected>Infinite Potential Well</option>
+                        <option value="QHO">Quantum Harmonic Oscillator</option>
+                        <option value="HA">Hydrogen Atom</option>
+                        <option value="PQM">Personalities</option>
+                    </select>
+                </div>
+                <div class="control-row"><a href="https://github.com/Amphiluke/learn-quantum-mechanics/blob/master/src/infinite-potential-well#infinite-potential-well" id="w-docs" target="_blank">Widget docs</a></div>
+            </fieldset>
+            <fieldset>
+                <legend>Widget settings</legend>
+                <div class="control-row">
+                    <label for="w-lang">Widget language</label><br>
+                    <select id="w-lang">
+                        <option value="en" selected>English</option>
+                        <option value="ru">Russian</option>
+                    </select>
+                </div>
+                <div class="control-row">
+                    <label><input type="checkbox" id="w-legacy"> Legacy browser support</label>
+                    <a href="https://github.com/Amphiluke/learn-quantum-mechanics#browser-compatibility" target="_blank" title="What is this?">[?]</a>
+                </div>
+            </fieldset>
+            <fieldset id="w-defaults">
+                <legend>Widget defaults</legend>
+                <div data-widget="IPW" class="active">
+                    <div class="quantum-numbers control-row">
+                        States to show (quantum numbers <var>n</var>)<br>
+                        <label><input type="checkbox" value="1" data-param="n" checked> 1</label>
+                        <label><input type="checkbox" value="2" data-param="n" checked> 2</label>
+                        <label><input type="checkbox" value="3" data-param="n" checked> 3</label>
+                        <label><input type="checkbox" value="4" data-param="n" checked> 4</label>
+                        <label><input type="checkbox" value="5" data-param="n"> 5</label>
+                        <label><input type="checkbox" value="6" data-param="n"> 6</label>
+                        <label><input type="checkbox" value="7" data-param="n"> 7</label>
+                        <label><input type="checkbox" value="8" data-param="n"> 8</label>
+                        <label><input type="checkbox" value="9" data-param="n"> 9</label>
+                        <label><input type="checkbox" value="10" data-param="n"> 10</label>
+                        <label><input type="checkbox" value="11" data-param="n"> 11</label>
+                    </div>
+                    <div class="control-row">
+                        <label><input type="checkbox" class="w-controls" data-param="controls" checked> Show controls</label>
+                    </div>
+                </div>
+                <div data-widget="QHO">
+                    <div class="quantum-numbers control-row">
+                        States to show (quantum numbers <var>n</var>)<br>
+                        <label><input type="checkbox" value="0" data-param="n" checked> 0</label>
+                        <label><input type="checkbox" value="1" data-param="n" checked> 1</label>
+                        <label><input type="checkbox" value="2" data-param="n" checked> 2</label>
+                        <label><input type="checkbox" value="3" data-param="n" checked> 3</label>
+                        <label><input type="checkbox" value="4" data-param="n"> 4</label>
+                        <label><input type="checkbox" value="5" data-param="n"> 5</label>
+                        <label><input type="checkbox" value="6" data-param="n"> 6</label>
+                        <label><input type="checkbox" value="7" data-param="n"> 7</label>
+                        <label><input type="checkbox" value="8" data-param="n"> 8</label>
+                        <label><input type="checkbox" value="9" data-param="n"> 9</label>
+                        <label><input type="checkbox" value="10" data-param="n"> 10</label>
+                    </div>
+                    <div class="control-row">
+                        <label><input type="checkbox" class="w-controls" data-param="controls" checked> Show controls</label>
+                    </div>
+                </div>
+                <div data-widget="HA">
+                    <div class="quantum-numbers control-row">
+                        Quantum numbers<br>
+                        <label><var>n</var> <input type="number" id="ha-principal" min="1" max="7" value="4" data-param="n"></label>
+                        <label><var>l</var> <input type="number" id="ha-azimuthal" min="0" max="3" value="2" data-param="l"></label>
+                    </div>
+                    <div class="control-row">
+                        <label><input type="checkbox" class="w-controls" data-param="controls" checked> Show controls</label>
+                    </div>
+                </div>
+                <div data-widget="PQM">
+                    <div class="control-row">
+                        <label for="pqm-interval">Slide change interval in ms</label><br>
+                        <input type="number" id="pqm-interval" value="10000" data-param="interval">
+                    </div>
+                    <div class="control-row">
+                        <label><input type="checkbox" id="ha-autoplay" data-param="autoPlay" checked> Auto play</label>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>Widget code</legend>
+                <div class="control-row">
+                    <label for="w-code">Use this code to embed the widget to your website</label><br>
+                    <textarea id="w-code" cols="30" rows="3" readonly></textarea>
+                </div>
+            </fieldset>
+        </div>
+        <fieldset class="w-preview">
+            <legend>Preview</legend>
+            <p>
+                <iframe src="about:blank" width="430" height="365" scrolling="no" frameborder="0" id="w-frame"></iframe>
+            </p>
+        </fieldset>
+    </form>
+
+    <footer>
+        © 2017 Amphiluke<br>
+        <a href="https://github.com/Amphiluke/learn-quantum-mechanics" target="_blank">project on GitHub</a>
+    </footer>
+
+    <script src="lb/vendor/polyfill.min.js"></script>
+    <script src="scripts/main-prod.js"></script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+{
+  "only": "scripts/main.js",
+  "presets": ["es2015"]
+}
