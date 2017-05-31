@@ -11,6 +11,8 @@ Simple interactive widgets for learning Quantum Mechanics.
 
 ## Common usage notes
 
+Please visit the [online widget constructor](https://amphiluke.github.io/learn-quantum-mechanics/) to get a widget code in a few clicks. If you want to write the code and configure the widget by yourself then please read the docs below.
+
 Use the following HTML to embed a widget into your website:
 
 ```html
