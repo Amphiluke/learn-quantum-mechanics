@@ -4,7 +4,7 @@
 
 The widget provides interactive wave function charts for the first 11 eigenstates (*n* = 0 to 10) of the [quantum harmonic oscillator](https://en.wikipedia.org/wiki/Quantum_harmonic_oscillator)
 
-$$\psi_n\left(x\right)=\frac{1}{\sqrt{2^n\: n!}}\cdot\left(\frac{m\omega}{\pi\hbar}\right)^{1/4}\cdot\, \exp\left(-\frac{m\omega x^2}{2\hbar}\right)\cdot H_n\left(\sqrt{\frac{m\omega}{\hbar}}x\right),\quad n=0,1,2,...$$
+$$\psi_n\left(x\right)=\frac{1}{\sqrt{2^n n!}}\cdot\left(\frac{m\omega}{\pi\hbar}\right)^{1/4}\cdot \exp\left(-\frac{m\omega x^2}{2\hbar}\right)\cdot H_n\left(\sqrt{\frac{m\omega}{\hbar}}x\right),\quad n=0,1,2,...$$
 
 ## Usage
 
