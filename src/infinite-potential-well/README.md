@@ -4,7 +4,7 @@
 
 The widget provides interactive wave function charts for the first 11 eigenstates (*n* = 1 to 11) of a one-dimensional [particle in a box](https://en.wikipedia.org/wiki/Particle_in_a_box)
 
-![Wave functions of a particle in a box](https://wikimedia.org/api/rest_v1/media/math/render/svg/25ea50d4377c0d7b784c37d5407bec4dbd1c1840)
+$$\psi_n\left(x\right)=\sqrt{\frac{2}{L}}\sin\left(\frac{n\pi x}{L}\right),\quad n=1,2,3,...$$
 
 ## Usage
 
